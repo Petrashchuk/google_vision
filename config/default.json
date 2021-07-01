@@ -1,0 +1,10 @@
+{
+  "port": 8000,
+  "mongoDB_url": "mongodb+srv://admin:admin@cluster0.mnijd.mongodb.net/boiler-plate?retryWrites=true&w=majority",
+  "JwtSecret": "secret-jwt",
+  "passwordSaltRounds": 7,
+  "googleClientId": "1081027396124-g9dhlsktvq3ub80s9kfjpehlptthcd12.apps.googleusercontent.com",
+  "googleSecretId": "vHE8b1q2kA5uESENrjLlS0W8",
+  "facebookSecretId": "62c7c706b2b92519874e890c003c82d9",
+  "facebookClientId": "2448626385391747"
+}
