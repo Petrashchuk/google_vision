@@ -1,6 +1,6 @@
 {
   "port": 8000,
-  "mongoDB_url": "mongodb+srv://admin:admin@cluster0.mnijd.mongodb.net/boiler-plate?retryWrites=true&w=majority",
+  "mongoDB_url":"mongodb+srv://admin:admin@googlevisionapi.ydyz6.mongodb.net/google-vision?retryWrites=true&w=majority",
   "JwtSecret": "secret-jwt",
   "passwordSaltRounds": 7,
   "googleClientId": "1081027396124-g9dhlsktvq3ub80s9kfjpehlptthcd12.apps.googleusercontent.com",
