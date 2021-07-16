@@ -11,12 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.947.0",
     "config": "^3.3.6",
     "dotenv": "^10.0.0",
+    "fs": "0.0.1-security",
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
     "mongoose": "^5.13.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.9"
