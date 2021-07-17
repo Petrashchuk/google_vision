@@ -13,6 +13,38 @@ const images = fs.readdirSync(filesPath);
 const router = new KoaRouter();
 
 
+// todo while is very hard to understand
+// here's an example of recursive function I wrote for the similar task
+// function recursiveFetch(fileNames, onFetch, onEnd) {
+//     const currentFiles = fileNames.splice(0, 10);
+//
+//     if (currentFiles.length === 0) {
+//         onEnd();
+//         return;
+//     }
+//
+//     Promise.all(currentFiles.map(async file => {
+//         // some fetch code
+//
+//     })).then((results) => {
+//         onFetch(results);
+//         // additional timeout was needed because of the load
+//         setTimeout(() => {
+//             recursiveFetch(fileNames, onFetch, onEnd);
+//         }, 1000);
+//     }).catch(e => {
+//         console.log(e)
+//     })
+// }
+//
+// recursiveFetch(urls,
+//     function onChunkFetch(results) {
+//         // do something
+//     },
+//     function onEnd () {
+//         // do something
+//     })
+
 router.post('/', async ctx => {
     const step = 1000;
     const staticTimes = Math.floor(images.length / step);
@@ -24,12 +56,12 @@ router.post('/', async ctx => {
         const startIndex = step * count;
         const finishIndex = step * count + num;
 
-        await Promise.all(images.slice(startIndex,finishIndex).map(async img => setImage(img)));
+        await Promise.all(images.slice(startIndex, finishIndex).map(async img => setImage(img)));
 
-        count ++
+        count++
     }
 
-    ctx.body ='set to AWS bucket'
+    ctx.body = 'set to AWS bucket'
 });
 
 

@@ -17,6 +17,8 @@ const createDir = name => {
 
 router.get('/copy', async ctx => {
 
+    // todo do you need to aways run this or one time?
+    // perhaps reuse path to files folder to be consistent with resolve(__dirname, `../../../files/${folderIndex}.${index}--${img}`)
     createDir('files');
     const folderList = await fs.promises.readdir(pathToImgDir, {encoding: 'utf8'});
 
@@ -24,6 +26,8 @@ router.get('/copy', async ctx => {
         const pathToFolder = join(pathToImgDir, `/${folder}`);
         const images = await fs.promises.readdir(pathToFolder);
 
+        // todo what is the purpose of upper level Promise.all if you don't return promise in map
+        // perhaps return Promise.all(images.map(async (img, index) => { ??
         await Promise.all(images.map(async (img, index) => {
             try {
                 const src = `${pathToFolder}/${img}`
