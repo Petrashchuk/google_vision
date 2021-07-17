@@ -2,7 +2,7 @@ import KoaRouter from 'koa-router';
 import fs from 'fs';
 import { join } from 'path';
 
-import { filesPath, ImgPath } from '../../utils';
+import { filesPath, ImgPath} from '../../utils';
 
 const router = new KoaRouter();
 
@@ -12,7 +12,7 @@ const createDir = name => {
     }
 }
 
-createDir('files');
+createDir(filesPath);
 
 router.get('/copy', async ctx => {
     const folderList = await fs.promises.readdir(ImgPath, {encoding: 'utf8'});
