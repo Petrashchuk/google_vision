@@ -24,18 +24,18 @@ export const setImage = async img => {
             Body: buffer,
             Key: img
         }
-        return s3.upload(uploadParams).promise();
+        return await s3.upload(uploadParams).promise();
     } catch (e) {
         console.error(e);
     }
 }
 
-export const getList=async () =>{
+export const getList = async () =>{
     const params = {
         Bucket: bucketName,
         MaxKeys : 2000
     };
-    return  s3.listObjects(params).promise();
+    return await s3.listObjects(params).promise();
 
 }
 
