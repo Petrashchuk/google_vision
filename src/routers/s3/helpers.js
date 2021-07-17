@@ -2,13 +2,10 @@ import AWS from "aws-sdk";
 import dotenv from "dotenv";
 import fs from "fs";
 
-import {dirname, resolve} from 'path';
-import {fileURLToPath} from 'url';
+import { filesPath } from '../../utils';
 
 dotenv.config();
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const filesPath = resolve(__dirname, '../../../files');
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 
@@ -27,7 +24,7 @@ export const setImage = async img => {
             Body: buffer,
             Key: img
         }
-        return await s3.upload(uploadParams).promise();
+        return s3.upload(uploadParams).promise();
     } catch (e) {
         console.error(e);
     }

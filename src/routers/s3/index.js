@@ -56,7 +56,7 @@ router.post('/', async ctx => {
         const startIndex = step * count;
         const finishIndex = step * count + num;
 
-        await Promise.all(images.slice(startIndex, finishIndex).map(async img => setImage(img)));
+        await Promise.all(images.slice(startIndex, finishIndex).map(img => setImage(img)));
 
         count++
     }
@@ -67,7 +67,7 @@ router.post('/', async ctx => {
 
 router.get('/', async ctx => {
 
-    ctx.body = await Promise.all(images.map(async img => getImage(img)));
+    ctx.body = await Promise.all(images.map(img => getImage(img)));
 
 })
 
