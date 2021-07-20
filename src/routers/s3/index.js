@@ -1,9 +1,9 @@
 import KoaRouter from 'koa-router';
 import fs from 'fs';
 
-import {dirname, resolve} from 'path';
-import {fileURLToPath} from 'url';
-import {getImage, setImage, getList} from './helpers';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+import { getImage, setImage } from './helpers';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -13,55 +13,32 @@ const images = fs.readdirSync(filesPath);
 const router = new KoaRouter();
 
 
-// todo while is very hard to understand
-// here's an example of recursive function I wrote for the similar task
-// function recursiveFetch(fileNames, onFetch, onEnd) {
-//     const currentFiles = fileNames.splice(0, 10);
-//
-//     if (currentFiles.length === 0) {
-//         onEnd();
-//         return;
-//     }
-//
-//     Promise.all(currentFiles.map(async file => {
-//         // some fetch code
-//
-//     })).then((results) => {
-//         onFetch(results);
-//         // additional timeout was needed because of the load
-//         setTimeout(() => {
-//             recursiveFetch(fileNames, onFetch, onEnd);
-//         }, 1000);
-//     }).catch(e => {
-//         console.log(e)
-//     })
-// }
-//
-// recursiveFetch(urls,
-//     function onChunkFetch(results) {
-//         // do something
-//     },
-//     function onEnd () {
-//         // do something
-//     })
+ function recursiveFetch(fileNames, onFetch, onEnd) {
+     const currentFiles = fileNames.splice(0, 10);
+
+     if (!currentFiles.length) {
+         onEnd();
+         return;
+     }
+
+     Promise.all(currentFiles.map(file => setImage(file)))
+         .then((results) => {
+         onFetch(results);
+         setTimeout(() => {
+             recursiveFetch(fileNames, onFetch, onEnd);
+         }, 1000);
+     }).catch(e => console.error(e))
+ }
+
 
 router.post('/', async ctx => {
-    const step = 1000;
-    const staticTimes = Math.floor(images.length / step);
-    let count = 0;
 
-    while (staticTimes >= count) {
-        const num = staticTimes - count > 0 ? step : images.length - step * count;
+    const onFetch = results => console.log('results',results);
 
-        const startIndex = step * count;
-        const finishIndex = step * count + num;
+    const onEnd = () =>console.log('End')
 
-        await Promise.all(images.slice(startIndex, finishIndex).map(img => setImage(img)));
+    recursiveFetch(images, onFetch, onEnd)
 
-        count++
-    }
-
-    ctx.body = 'set to AWS bucket'
 });
 
 
