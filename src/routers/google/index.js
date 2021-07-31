@@ -1,11 +1,11 @@
 import KoaRouter from 'koa-router';
 import fs from 'fs';
 import vision from '@google-cloud/vision';
-import { filesPath } from '../../utils';
+import {filesPath} from '../../utils';
 
 const router = new KoaRouter();
 const client = new vision.ImageAnnotatorClient({
-    keyFilename:'appKey.json'
+    keyFilename: 'appKey.json'
 });
 
 router.get('/', async ctx => {
@@ -14,10 +14,18 @@ router.get('/', async ctx => {
     const file = files[0];
     try {
         const readFile = fs.readFileSync(`${filesPath}/${file}`);
-        const [result] = await client.labelDetection(readFile);
+        const request = {
+            image: {content: readFile},
+            features: [
+         /*       {type: 'FACE_DETECTION'},
+                {type: 'WEB_DETECTION'},*/
+                {type: 'LABEL_DETECTION'}
+
+            ],
+        };
+        const [result] = await client.annotateImage(request);
         ctx.body = result;
-    }
-    catch (e) {
+    } catch (e) {
         console.log('error', e);
     }
 
